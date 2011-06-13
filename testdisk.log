@@ -1,0 +1,150 @@
+
+
+Wed May  4 17:56:51 2011
+Command line: TestDisk
+
+TestDisk 6.11, Data Recovery Utility, April 2009
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 2.6.35-29-generic (#51-Ubuntu SMP Fri Apr 15 17:13:54 UTC 2011)
+Compiler: GCC 4.4 - Jun 23 2009 17:11:34
+ext2fs lib: 1.41.12, ntfs lib: 10:0:0, reiserfs lib: none, ewf lib: none
+/dev/sda: LBA, HPA, LBA48, DCO support
+/dev/sda: size       488397168 sectors
+/dev/sda: user_max   488397168 sectors
+/dev/sda: native_max 488397168 sectors
+/dev/sda: dco        488397168 sectors
+Warning: can't get size for Disk /dev/mapper/control - 0 B - CHS 1 1 1, sector size=512
+Hard disk list
+Disk /dev/sda - 250 GB / 232 GiB - CHS 30401 255 63, sector size=512 - ATA Hitachi HTS54322
+Disk /dev/sdb - 2000 GB / 1863 GiB - CHS 243201 255 63, sector size=512 - WD Ext HDD 1021
+
+Partition table type (auto): Intel
+Disk /dev/sda - 250 GB / 232 GiB - ATA Hitachi HTS54322
+Partition table type: Intel
+
+Analyse Disk /dev/sda - 250 GB / 232 GiB - CHS 30401 255 63
+Geometry from i386 MBR: head=255 sector=63
+NTFS at 0/1/1
+NTFS at 7490/1/1
+NTFS at 14980/1/1
+get_geometry_from_list_part_aux head=255 nbr=10
+get_geometry_from_list_part_aux head=8 nbr=1
+get_geometry_from_list_part_aux head=16 nbr=1
+get_geometry_from_list_part_aux head=32 nbr=1
+get_geometry_from_list_part_aux head=64 nbr=1
+get_geometry_from_list_part_aux head=128 nbr=1
+get_geometry_from_list_part_aux head=240 nbr=1
+get_geometry_from_list_part_aux head=255 nbr=10
+Current partition structure:
+ 1 * HPFS - NTFS              0   1  1  7489 254 63  120326787
+ 2 E extended LBA          7490   0 62 30401  75 10  368069889
+ 5 L HPFS - NTFS           7490   1  1 14979 254 63  120326787 [TOOLS]
+   X extended             14980   0  1 22469 254 63  120326850
+ 6 L HPFS - NTFS          14980   1  1 22469 254 63  120326787 [DATA]
+   X extended             22470   0  1 29914 242 24  119603130
+ 7 L Linux                22470  31 26 29914 242 24  119601152
+   X extended             29915   0  1 30401  75 10    7812325
+ 8 L Linux Swap           29915  19 57 30401  75 10    7811072
+Computes LBA from CHS for Disk /dev/sda - 250 GB / 232 GiB - CHS 30402 255 63
+Allow partial last cylinder : Yes
+search_vista_part: 1
+
+search_part()
+Disk /dev/sda - 250 GB / 232 GiB - CHS 30402 255 63
+NTFS at 0/1/1
+filesystem size           120326787
+sectors_per_cluster       8
+mft_lcn                   786432
+mftmirr_lcn               16
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+     HPFS - NTFS              0   1  1  7489 254 63  120326787
+     NTFS, 61 GB / 57 GiB
+NTFS at 7490/1/1
+filesystem size           120326787
+sectors_per_cluster       8
+mft_lcn                   786432
+mftmirr_lcn               16
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+     HPFS - NTFS           7490   1  1 14979 254 63  120326787 [TOOLS]
+     NTFS, 61 GB / 57 GiB
+NTFS at 14980/1/1
+filesystem size           120326787
+sectors_per_cluster       8
+mft_lcn                   786432
+mftmirr_lcn               2
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+     HPFS - NTFS          14980   1  1 22469 254 63  120326787 [DATA]
+     NTFS, 61 GB / 57 GiB
+NTFS at 22470/1/1
+filesystem size           127411452
+sectors_per_cluster       8
+mft_lcn                   786432
+mftmirr_lcn               16
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+     HPFS - NTFS          22470   1  1 30400 254 63  127411452
+     NTFS, 65 GB / 60 GiB
+get_geometry_from_list_part_aux head=255 nbr=8
+get_geometry_from_list_part_aux head=8 nbr=1
+get_geometry_from_list_part_aux head=16 nbr=1
+get_geometry_from_list_part_aux head=32 nbr=1
+get_geometry_from_list_part_aux head=64 nbr=1
+get_geometry_from_list_part_aux head=128 nbr=1
+get_geometry_from_list_part_aux head=240 nbr=1
+get_geometry_from_list_part_aux head=255 nbr=8
+
+Results
+   * HPFS - NTFS              0   1  1  7489 254 63  120326787
+     NTFS, 61 GB / 57 GiB
+   L HPFS - NTFS           7490   1  1 14979 254 63  120326787 [TOOLS]
+     NTFS, 61 GB / 57 GiB
+   L HPFS - NTFS          14980   1  1 22469 254 63  120326787 [DATA]
+     NTFS, 61 GB / 57 GiB
+   L HPFS - NTFS          22470   1  1 30400 254 63  127411452
+     NTFS, 65 GB / 60 GiB
+
+interface_write()
+ 1 * HPFS - NTFS              0   1  1  7489 254 63  120326787
+ 2 E extended LBA          7490   0  1 30400 254 63  368065215
+ 5 L HPFS - NTFS           7490   1  1 14979 254 63  120326787 [TOOLS]
+ 6 L HPFS - NTFS          14980   1  1 22469 254 63  120326787 [DATA]
+ 7 L HPFS - NTFS          22470   1  1 30400 254 63  127411452
+
+search_part()
+Disk /dev/sda - 250 GB / 232 GiB - CHS 30402 255 63
+NTFS at 0/1/1
+filesystem size           120326787
+sectors_per_cluster       8
+mft_lcn                   786432
+mftmirr_lcn               16
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+     HPFS - NTFS              0   1  1  7489 254 63  120326787
+     NTFS, 61 GB / 57 GiB
+Search for partition aborted
+get_geometry_from_list_part_aux head=255 nbr=2
+get_geometry_from_list_part_aux head=8 nbr=1
+get_geometry_from_list_part_aux head=16 nbr=1
+get_geometry_from_list_part_aux head=32 nbr=1
+get_geometry_from_list_part_aux head=64 nbr=1
+get_geometry_from_list_part_aux head=128 nbr=1
+get_geometry_from_list_part_aux head=240 nbr=1
+get_geometry_from_list_part_aux head=255 nbr=2
+
+Results
+   * HPFS - NTFS              0   1  1  7489 254 63  120326787
+     NTFS, 61 GB / 57 GiB
+
+interface_write()
+ 1 * HPFS - NTFS              0   1  1  7489 254 63  120326787
+simulate write!
+
+write_mbr_i386: starting...
+write_all_log_i386: starting...
+No extended partition
+
+TestDisk exited normally.

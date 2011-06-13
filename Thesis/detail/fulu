@@ -1,0 +1,20 @@
+\appendix
+\chapter{同步IPC实现源码}
+\begin{lstlisting}
+
+\end{lstlisting}
+$_{\cite{orange}}$
+\chapter{用户编程接口}
+\section{printf}
+功能：在标准终端tty中显示以指定的格式显示内容。使用方法：printf("[变量格式]"，变量....)。
+\section{close}
+功能：关闭指定文件。使用方法：close(文件指针)。成功返回0。
+\section{exec}
+功能：运行制定的程序。使用方法：exec(const char * path)
+\section{fork}
+\section{getpid}
+\section{misc}
+\section{open}
+\section{read}
+\section{syslog}
+\section{ulink}

@@ -1,0 +1,756 @@
+\documentclass[UTF8,nofonts,cs4size]{ctexrep}
+\setCJKmainfont{AR PL SungtiL GB} %中文为wqy 微米黑字体
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx}
+%插入c代码
+\usepackage{xcolor}
+\usepackage{listings}
+\lstset{
+  language=C,
+  keywordstyle=\color{blue},
+  numbers=left,
+  basicstyle=\ttfamily,
+  frame=leftline,
+  breaklines=true,
+  texcl=true,
+  backgroundcolor=\color{green!69!yellow!30!}
+}
+
+
+\usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{ geometry}
+\usepackage{indentfirst}
+\setlength{\parindent}{4em }
+\setlength{\parskip}{0pt }
+
+
+\begin{document}
+%章节格式设置
+\CTEXsetup[format={\centering\zihao{3}}]{chapter}
+\CTEXsetup[format={\zihao{4}}]{section}
+\CTEXsetup[format={\zihao{-4}}]{subsection}
+
+%目录格式设置
+\CTEXoptions[contentsname={\zihao{3}目\ 录}]
+\tableofcontents
+
+%摘要
+\CTEXoptions[abstractname={\zihao{3}摘要}]
+\begin{abstract}
+
+\end{abstract}
+
+%摘要
+\CTEXoptions[abstractname={\zihao{3}ABSTRACT}]
+\begin{abstract}
+\end{abstract}
+
+\CTEXoptions[abstractname={\zihao{3}前言}]
+\begin{abstract}
+
+\end{abstract}
+
+
+\chapter{操作系统的功能和定位}
+操作系统（Operating System）是计算机体系里面最为基础和重要的系统软件。它是用户与计算机硬件系统之间的接口，是就按即系统资源的管理者，更是用户使用的平台。真正意义上的操作系统主要有四个特点：用户依靠操作系统方便的使用九三即软件、硬件设备，提高计算机的效率，操作系统必须具有良好的扩充性，操作系统必须具有优良的移植性、互操作性和统一的开放环境。操作系统体系是一个非常复杂的知识体系，它涉及的知识很多很复杂，比如内核研究、进程调度和管理、存储器管理、文件管理和设备管理等技术。
+目前对于操作系统教材上只讲其原理，不实际动手操作及实现，所以学生在学习它的时候会感到非常抽象。国内外一些著名高校通常是鼓励学生在学习这门课程的同时自己动手开发一个能够实现OS基本功能的微型操作系统来加强对该课程的掌握。通过时间对于学生充分掌握书本知识、打下扎实的基本功有非常大的帮助。在此基础上，我们提出了实现一个具体的操作系统。并且我们将这个操作系统定位为实时操作系统。
+\section{操作系统的发展及现状}
+\section{操作系统的功能}
+可以从不同的角度来观察操作系统的作用。从一般用户的角度来看，可以把操作系统堪称是用户与计算机硬件字同之间的接口；从资源管理的角度来看，操作系统是计算机资源的管理者。
+\subsection{操作系统作为用户与计算机之间的接口}
+操作系统作为用户与计算机硬件系统之间接口的含义是：操作系统处于用户与计算机硬件系统之间，用户通过操作系统来使用计算机系统。或者说，用户在操作系统的帮助下，能够方便、快捷、安全、可靠的操作计算机硬件和运行自己的程序。应注意，OS是一个系统软件，因而这种接口是软件接口。下图是操作系统作为接口的示意图。
+由图可以看出，用户可以通过以下三种方式来使用计算机。
+1.命令方式。这是指由操作系统提供了一组联机命令，用户可通过键盘输入有关命令，来直接计算机系统。
+2.系统调用方式。操作系统提供了一组系统调用，用户可以在自己的应用程序中通过使用相应的系统调用来操作计算机系统。
+3.图形、窗口方式。用户通过屏幕上的窗口和图标来操作计算机和运行自己的程序。
+\subsection{操作系统作为计算机系统资源的管理者}
+在一个计算机系统中，通常都含有各种各样的硬件和软件资源，归纳起来可将资源分为四类：处理器、存储器、I/O设备以及信息。相应的，操作系统的主要功能也是针对这四类资源进行有效的管理，即：处理机管理，用于分配和控制处理机；存储器管理，主要负责内存的分配与回收；I/O设备管理，负责I/O设备的分配和操纵；文件管理，负责文件的存取、共享和保护。可见，操作系统是计算机系统资源的管理者。事实上，当今世界上流行的一个关于操作系统作用的观点，正式吧操作系统作为计算机系统的资源管理者。
+\subsection{操作系统作为扩充机器}
+对于一台完全无软件的计算机系统（即裸机），即使其功能再强，也未必是方便使用的。弱国我们在裸机上覆盖上一层I/O设备管理软件，用户可利用它所提供的I/O命令，来进行数据输入和打印输出。此时用户所看到的机器，将是一台比裸机功能更强、使用更加方便的机器。通常把覆盖了软件的机器称为扩展机器或者虚拟机。如果我们又在第一层软件上再覆盖一层文件管理软件，则用户可利用该软件提供的文件存取命令，来进行文件的存取。此时，用户所看到的是一台功能更强的虚拟机。由此可知，每当人们在计算机系统上覆盖上一层软件后，系统功能便增强一级。由于操作系统本身包含若干个层次，因此在逻辑上覆盖上OS之后，便可获得一台功能显著增强、使用及其方便的多层扩充机器或者多层虚拟机。
+\section{实时操作系统}
+为了提高资源的利用率和系统吞吐量，在60年代中期人们就开始使用多道程序设计技术。而我们所设计的操作系统就是采用了这种技术来实现多任务处理。在操作系统中，用户所提交的作业都先放在外存上并形成一个队列，称为“后备队列”；然后，由作业调度程序安一定的算法从后备队列中选取若干个作业调入内存，使他们共享CPU和系统中的各种资源。具体地说，在操作系统中使用多任务处理技术可以带来以下好处：提高CPU的利用率；提高I/O设备利用率；增加系统吞吐量。
+\paragraph{}
+而所谓实时，就是表示“及时”。而实时操作系统是指系统能够及时响应外部事件的请求，并且在规定的时间内完成对该时间的处理，并控制所有实时任务协调一致运行。这中实时性保证了操作系统能够进行实时控制和实时信息处理。一般实时操作系统具有一下特点。
+\\1.高精度计时系统。
+　　计时精度是影响实时性的一个重要因素。在实时应用系统中，经常需要精确确定实时地操作某个设备或执行某个任务，或精确的计算一个时间函数。这些不仅依赖于一些硬件提供的时钟精度，也依赖于实时操作系统实现的高精度计时功能。
+　\\　2.多级中断机制。
+　　一个实时应用系统通常需要处理多种外部信息或事件，但处理的紧迫程度有轻重缓急之分。有的必须立即作出反应，有的则可以延后处理。因此，需要建立多级中断嵌套处理机制，以确保对紧迫程度较高的实时事件进行及时响应和处理。
+　\\　3.实时调度机制。
+　　实时操作系统不仅要及时响应实时事件中断，同时也要及时调度运行实时任务。但是，处理机调度并不能随心所欲的进行，因为涉及到两个进程之间的切换，只能在确保“安全切换”的时间点上进行，实时调度机制包括两个方面，一是在调度策略和算法上保证优先调度实时任务；二是建立更多“安全切换”时间点，保证及时调度实时任务。
+\chapter{实现环境介绍}
+
+在实现我们所设计的错做系统的时候。我们主要使用了nasm语言和c语言。其中使用nasm汇编语言完成大部分与硬件交互的代码，而使用c语言完成了一些比较靠上的服务，例如文件系统。并且在linux环境下使用bochs搭建了实验平台，方便测试和调试。
+\section{开发工具}
+\subsection{Bochs}
+Bochs是一种十分轻便的使用c++编写的开源IA-32(x86)电脑模拟器，可以运行在最受欢迎的平台上。它仿真英特尔x86 CPU、常见的I/O设备、和定制的BIOS。目前，Bochs可以被编译仿真386、486、Pentium/PentiumII/PentiumIII/Pentium4或x86-64位的CPU，包括可选的MMX,SSEx和3DNow指令。在Bochs仿真环境里能够运行许多操作系统，比如Linux、DOS、Windows 95/98/NT/2000/XP或者Windows Vista。Bochs是由凯文·劳顿编写的，目前由“http://bochs.sourceforge.net”的Bochs项目组维护。
+　　Bochs可以被编译运用在多种模式下，其中有些仍处于发展中。bochs的典型应用是提供x86 PC的完整仿真，包括x86处理器、硬件设备、和存储器。这让您在您的工作站上的模拟器里运行操作系统和软件，就像你有一台机器内的机器。例如，Bochs还将允许您在安装X11的Solaris机上运行windows应用程序。
+　　Bochs的发布遵守GNU LGPL。
+\subsection{Nasm}
+NASM 是一个为可移植性与模块化而设计的一个 80x86 的汇编器。它支持相当多
+的目标文件格式,包括 Linux 和'NetBSD/FreeBSD','a.out','ELF','COFF',微软 16
+位的'OBJ'和'Win32'。它还可以输出纯二进制文件。它的语法设计得相当的简
+洁易懂,和 Intel 语法相似但更简单。它支持'Pentium','P6','MMX','3DNow!',
+'SSE' and 'SSE2'指令集.
+\subsection{Gcc}
+Linux系统下的gcc（GNU C Compiler）是GNU推出的功能强大、性能优越的多平台编译器，是GNU的代表作品之一。gcc是可以在多种硬体平台上编译出可执行程序的超级编译器，其执行效率与一般的编译器相比平均效率要高20%~30%。
+\section{开发环境}
+\subsection{Linux}
+Linux ，是一 类Unix 计算机作业系统 的统称。 该作业系统的核心的名字也是「 Linux 」。 Linux作业系统也是 自由软体 和 开放原始码 发展中最著名的例子。
+严格来讲，Linux这个词本身只表示 Linux核心 ，但在实际上人们已经习惯了用Linux来形容整个基于Linux核心，并且使用 GNU工程 各种工具和资料库的作业系统（也被称为 GNU/Linux ）。 基于这些组件的Linux软件被称为 Linux发行版 。 一般来讲，一个Linux发行套件包含大量的软件，比如 软件开发 工具、 资料库 （例如 PostgreSQL 、 MySQL ）、 网路伺服器 （例如 Apache ）、 X Window 、桌面环境（例如 GNOME 和 KDE ）、办公套件（例如 OpenOffice.org ）、脚本语言（例如 Perl 、 PHP 和 Python ）等等。
+Linux核心最初是为 英特尔 386 微处理器 设计的。 现在Linux核心支援从 个人电脑 到 大型主机 甚至包括 嵌入式系统 在内的各种硬件设备。
+现在，Linux已经成为了一种受到广泛关注和支持的作业系统。 包括 国际商用机器公司 和 惠普 、 戴尔 在内的一些资讯业巨头也陆续支援Linux，并且成立了一些组织支持其发展，如 Open Invention Network（OIN） （成员有IBM、 索尼 、 NEC 、Philips、Novell和Red Hat等）购买了 微软 专利 ，允许任何个体以开放的原则使用。 很多人认为，和微软的 Windows 相比，作为自由软件的Linux具有低软体成本、高安全性且可更加信赖等优势，但是同时却需要更多的人力成本。
+
+
+
+
+
+
+
+
+\chapter{操作系统的结构设计}
+\section{设计概要}
+操作系统在整个计算机体系结构中占到了非常重要的地位。是硬件系统之上为其他功能提供支柱性作用的系统软件。而设计一个操作系统，其要提供的功能对于硬件而言来说具有极强的针对性。因为在设计操作系统之前，需要明确操作系统所支持的硬件结构。并且还要明确所要设计的操作系统所能够提供的服务。我们所设计的这个操作系统，带有极强的实验性质。我们所设计的操作系统针对以Intel80386中央处理器为核心的Intel架构的机器，并且提供了一下功能：文件系统，进程管理，内存管理，进程间通信，基本输入输出系统。整个操作系统将运行在32位的保护模式下。
+\section{硬件模型}
+硬件是用户最先看到的计算机系统的物理部分，也是操作系统的基石。他确定了该计算机系统所支持的指令系统，以及程序的运行环境。是一个计算机系统最为关键的部分。于是我们在设计操作系统时，必然应当先确定硬件模型。但是作为系统软件的设计者，我们所关心并非是硬件的所有的细节，而是对于作为系统程序编程人员的我们而言，不是透明的那部分。图\ref{1} 展示了我们所设计的操作系统所针对的硬件模型框架。
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.3]{sumti.eps}
+\caption{硬件模型}
+\label{1}
+\end{figure}
+
+\paragraph{}
+我们所设计的操作系统针对典型的冯诺伊曼计算机。使用总线结构，系统的各部分组件经由总线相互关联在一起。完成交换数据，传递命令等功能。
+\subsection{存储系统}
+该模型使用三层存储层次。风别为高速缓冲存储器、主存储器、辅助存储器。高速缓冲存储器用来改善主存储器与中央处理器的速度匹配问题。大小和容量对于系统程序员而言是透明的。主存储器是计算机运行时，存储程序和数据的主要场所。在我们的模型中其大小为32MB.而辅助存储器用于扩大存储空间。我们的硬件模型主要有两种类型的辅助存储器。一种是1.44MB大小的软盘。另外一种是ATA硬盘（其大小不固定）。                                                                                     
+\subsection{输入输出系统}
+像一般的计算机系统一样。该模型使用键盘作为标准输入，也是唯一的输入设备。而将显示器作为输出设备。其中在我们假设显示系统为典型的VGA系统。
+\subsection{中央处理器}
+这是计算机硬件模型的核心部件。是程序运行的地方。我们的模型使用32位80386CPU。对于设计操作系统而言我们更关心的是他的寄存器环境，如图\ref{80386}所示。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.7]{80386.eps}
+\caption{80386寄存器}
+\label{80386}
+\end{figure}
+
+\subsection{中断机制硬件基础}
+现在的计算机硬件系统，为了提高信息交换的效率大都采用了中断。采用了中断后，CPU无需空转去等待某个事件的发生。当某个事件发生时向CPU发出一个中断请求信号即可。中断一般用来进行同步操作、实现实时处理、故障处理等功能。而在我们所设计的操作系统中，中断充当了一个浓墨重彩的角色。硬件系统通过两个中断控制器（主8059A、从8259A）接受来自键盘、硬盘等的各种事件信息，并交付给操作系统处理，如图\ref{interrupt}。
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.4]{interrupt.eps}
+\caption{中断控制器}
+\label{interrupt}
+\end{figure}
+\section{系统启动顺序}
+当计算机电源被打开时，他会先进行家电自检（POST），然后寻找启动盘。在我们所设计的系统中，将启动盘设置为软盘。计算机将会检查软盘的0面0磁道1扇区。如果他以0xAA55结束，则BIOS将其识别为一个引导扇区，并将这512B的内容复制到内存地址0000:7c00处，然后跳转到0000:7c00处将控制权彻底交给这段引导代码。到此为止，计算机将不再由BIOS中固有的程序来控制，而变成由我们所设计的错做系统的一部分来控制。
+\paragraph{}
+\indent
+由于存储介质的限制，一般操作系统的引导信息只能存储在前512B之内。因此我们不能将一个完整的操作系统内核安放在这非常小的512B之内。因此我们需要一个专门的程序来引导内核，我们称这个程序为loader。而且在加载内核之前，我们还需要设置好内核的运行环境（内存环境和相应寄存器环境），以及为内核准备一些数据。这些工作也又loader来完成。这样下来，一个完成后的loader所占用的存储空间将超过512B，因此也不能安放在那512B的引导扇区之上。于是我们又需要编写一个程序来引导loader，我们称这个程序为boot。而在加载完成内核之后，才能够运行各种用户程序。于是我们所设计的操作系统的引导顺序图\ref{start} 所示。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.3]{start.eps}
+\caption{启动顺序}
+\label{start}
+\end{figure}
+
+\section{内核结构}
+我们所设计的操作系统将提供操作系统的一般功能：进程管理机制，中断服务系统（包括系统调用）、内存管理机制、文件系统、基本的输入输出功能。这些功能各自之间相互独立又相互依赖，共同为用户程序的执行提供软件基础。
+\paragraph{}
+在比较了宏内核结构和微内核结构的优劣之后。我们选择了结构更加清晰的微内核结构。微内核结构是一种能够提供必要服务的操作系统内核；其中这些必要的服务包括进程管理，交互进程通信（IPC，Inter－Process Communication）等等。所有服务（包括设备驱动）在用户模式下运行，而处理这些服务同处理其他的任何一个程序一样。因为每个服务只是在自己的地址空间运行。所以这些服务之间彼此之间都受到了保护。微内核是内核的一种精简形式。将通常与内核集成在一起的系统服务层被分离出来，变成可以根据需求加入的选件，这样就可提供更好的可扩展性和更加有效的应用环境。使用微内核设计，对系统进行升级，只要用新模块替换旧模块，不需要改变整个操作系统。于是我们所设计的操作系统的结构看起来像图\ref{osstruct}所示：
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.4]{osstruct.eps}
+\caption{内核结构}
+\label{osstruct}
+\end{figure}
+\chapter{内核加载}
+正像上一章所说的那样，被引导扇区加载进内存，并非就是操作系统内核了。一个操作系统从开机到开始运行，大致经历了这样一个过程“引导->加载内核->跳入保护模式->开始执行内核”这样一个过程。也就是说在内核开始之前不但要加载内核到内存，而且还要准备保护模式等一些列的工作。如果交给Boot来完成，显然512B不够用。所以，不妨把这个过程交给另外的模块Loader来完成。Boot负责把Loader加载入内存并且将控制权交给Loader，其他的工作就可以交给Loader来做。因为Loader没有了512B的限制，也变的灵活多了。
+\section{Boot}
+我们将作为启动介质的软盘做成FAT12格式，以方便操作和查找数据。而Boot模块所要做的，就是从FAT12格式的软盘中将Loader模块的执行文件“LOADER.bin”找出来，并加载到内存的指定位置。
+\section{Loader}
+Loader完成的功能相对于Boot来说要更加复杂。除了要在存储介质软盘中寻找kernel.bin并将其加载到制定位置外。还要为内存的运行进行一些准备工作。这些工作包括，准备基本的段页式内存管理机制，启动保护模式。
+\subsection{内核目标文件格式ELF}
+系统内核是一个大型的程序，它将会有很多模块组成。而每个模块可能要放到指定的内存地址上。于是Loader必须能够从kernel.bin中解读出哪些程序应该放在哪个特定的位置。于是我们将kernel.bin链接成ELF（Executable and Linking Format），可执行链接格式。一方便loader解读这些信息。于是Loader从软盘中查找到kernel.bin之后将会对其按照ELF格式进行解读，并合理安放各程序的位置。
+\subsection{启动保护模式}
+\begin{lstlisting}
+; 下面准备跳入保护模式 -------------------------------------------
+
+; 加载 GDTR
+	lgdt	[GdtPtr]
+
+; 关中断
+	cli
+
+; 打开地址线A20
+	in	al, 92h
+	or	al, 00000010b
+	out	92h, al
+
+; 准备切换到保护模式
+	mov	eax, cr0
+	or	eax, 1
+	mov	cr0, eax
+
+; 真正进入保护模式
+	jmp	dword SelectorFlatC:(LOADER_PHY_ADDR+LABEL_PM_START)
+
+\end{lstlisting}
+\chapter{进程管理}
+\section{进程管理服务框架}
+ 进程是操作系统中最为重要的一个观念。                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            从功能上看他是程序的一次执行过程。而引入进程的概念，也是为了使程序能够并发执行，并且为了对并发执行的程序加以控制和描述。进程是一个动态的使用系统资源、处于活动状态的程序。我们所设计的操作系统是一个多任务的操作系统，系统使用合适的调用短发来调用进程。我们的进程管理由进程控制块（PCB）、进程调度、中断处理、定时器、进程通信等部分组成，他是我们所设计的操作系统存储管理、文件管理、设备管理的基础。
+ \paragraph{}
+ 一个程序可移动多次,它的每个运行副本都有自己的进程。进程的存在过程可以分为进程的产生、执行和结束三个步骤。
+ \paragraph{}
+ 我们所设计的操作系统支持多进程，操作系统在各个进程之间以一定的调度机制，轮流使用CPU时间片。从用户角度看，就是像多个进程同时执行。
+\section{进程控制块PCB}
+每个进程都有自己的属性，用一个proc数据结构来表述，它包含了进程的详细信息，主要有进程标志（PID）、进程所占用的内存区域、相关文件的描述符、进程环境、信号处理、资源安排、同步处理和进程状态几个方面。
+
+数组proc\_ table包含只想系统中所有的proc结构的指针。
+
+系统中最大进程数受proc\_ table数组大小的限制，默认值为系统预定义的两个常量NR \_ TASKS和NR \_  PROCS之和。
+\begin{lstlisting}
+/*form kernel/global.c*/
+PUBLIC  struct proc proc_table[NR_TASKS + NR_PROCS];
+\end{lstlisting}
+在创建进程的时候，操作系统从proc\_ table数组中分配一个结构。操作系统初始化完成后，他建立第一个proc \_ table数据结构。当前运行进程的结构用proc\_ ready指针来指示。
+
+
+proc结构定如下：
+\begin{lstlisting}
+/*form inclue/sys/proc.c*/
+struct proc {
+	struct stackframe regs;    /* process registers saved in stack frame */
+	u16 ldt_sel;               /* gdt selector giving ldt base and limit */
+	struct descriptor ldts[LDT_SIZE]; /* local descs for code and data */
+    int ticks;                 /* remained ticks */
+    int priority;
+	/* u32 pid;                   /\* process id passed in from MM *\/ */
+	char name[16];		   /* name of the process */
+	int  p_flags;              /**
+				    * process flags.
+				    * A proc is runnable iff p_flags==0
+				    */
+	MESSAGE * p_msg;
+	int p_recvfrom;
+	int p_sendto;
+	int has_int_msg;           /**
+				    * nonzero if an INTERRUPT occurred when
+				    * the task is not ready to deal with it.
+				    */
+	struct proc * q_sending;   /**
+				    * queue of procs sending messages to
+				    * this proc
+				    */
+	struct proc * next_sending;/**
+				    * next proc in the sending
+				    * queue (q_sending)
+				    */
+	int p_parent; /**< pid of parent process */
+	int exit_status; /**< for parent */
+	struct file_desc * filp[NR_FILES];
+	struct proc* next;
+};
+\end{lstlisting}
+\subsection{进程数据保存}
+进程之间切换需要保存各种各样的数据细分下来有下面几个方面。
+\paragraph{}
+(1)用户数据的保存：包括正文段、数据段、堆栈栈。
+\begin{lstlisting}
+/*form include/sys/proc.c*/
+	u16 ldt_sel;               /* gdt selector giving ldt base and limit */
+	struct descriptor ldts[LDT_SIZE]; /* local descs for code and data */
+\end{lstlisting}
+\paragraph{}
+(2)寄存器数据的保存：包括PC（program counter）、PSW（processor status word，处理器状态字）、SP（stack pointer，栈指针）、PCBP（pointer of process control block，进程控制块指针），以及其他通用寄存器等。
+\begin{lstlisting}
+/*form include/sys/proc.c*/
+	struct stackframe regs;    /* process registers saved in stack frame */
+\end{lstlisting}
+struct stackframe数据结构的内容是程序运行时各个寄存器的值。
+\begin{lstlisting}
+/*form include/sys/proc.h*/
+struct stackframe {	/* proc_ptr points here				↑ Low			*/
+	u32	gs;		/* ┓						│			*/
+	u32	fs;		/* ┃						│			*/
+	u32	es;		/* ┃						│			*/
+	u32	ds;		/* ┃						│			*/
+	u32	edi;		/* ┃						│			*/
+	u32	esi;		/* ┣ pushed by save()				│			*/
+	u32	ebp;		/* ┃						│			*/
+	u32	kernel_esp;	/* <- 'popad' will ignore it			│			*/
+	u32	ebx;		/* ┃						↑栈从高地址往低地址增长*/		
+	u32	edx;		/* ┃						│			*/
+	u32	ecx;		/* ┃						│			*/
+	u32	eax;		/* ┛						│			*/
+	u32	retaddr;	/* return address for assembly code save()	│			*/
+	u32	eip;		/*  ┓						│			*/
+	u32	cs;		/*  ┃						│			*/
+	u32	eflags;		/*  ┣ these are pushed by CPU during interrupt	│			*/
+	u32	esp;		/*  ┃						│			*/
+	u32	ss;		/*  ┛						┷High			*/
+};
+\end{lstlisting}
+\subsection{进程状态和进程标志}
+进程状态定义有以下几种：
+\begin{lstlisting}
+/* form include/sys/const.h
+ *#define RUNNING 0x00  程序运行
+ */
+#define SENDING   0x02	/* set when proc trying to send */
+#define RECEIVING 0x04	/* set when proc trying to recv */
+#define WAITING   0x08	/* set when proc waiting for the child to terminate */
+#define HANGING   0x10	/* set when proc exits without being waited by parent */
+\end{lstlisting}
+运行中的进程可能具有三种基本状态，就绪、执行和阻塞。而上面的这多种状态只是这三种状态阴部同的状态而引发的具体情况。比如SENDING和RECEIVING是由于进程间同步通信而引发的阻塞状态。WAITING是程序就绪状态。HANGING是在程序执行完成后退出时的状态。
+\paragraph{}
+进程的状态转移如如图\ref{procstatus} 所示。
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.4]{procstatus.eps}
+\caption{进程状态}
+\label{procstatus}
+\end{figure}
+do\_ dork创建进程后进入RUUNING状态，经由schdule调度得到cpu使用权开始执行。若在CPU执行过程中需要进行进程间通信或者申请资源得不到的时候将会进入阻塞状态。当创建其他进程时进程进入WAITING状态。最后当各种过程完成后，将进程状态标记为RUNNING，然后等待shedule调度。
+\subsection{进程优先级及进程调度}
+priority进程优先级，在0～MAX\_ PRIO-1（MAX\_ PRIO定义为140）之间取值。在程序初始化时将程序的实时优先级ticks设置成priority的值。每次程序获得CPU使用权限，其ticks值都会随着时钟中断的发生而减小，当减小到0的时候，程序将CPU控制权让出，并将自己的ticks再次设置成priority。而只有当程序的状态p\_ flags为RUNNING的时候程序才能够获得CPU使用权限。
+\begin{lstlisting}
+/*form kernel/proc.c
+ *schedule()函数，进程调度函数
+ */
+PUBLIC void schedule()
+{
+	struct proc*	p;
+	int		greatest_ticks = 0;
+//    int i;
+	while (!greatest_ticks) {
+		for (p = &FIRST_PROC; p <= &LAST_PROC; p++) {
+			if (p->p_flags == 0) {
+				if (p->ticks > greatest_ticks) {
+					greatest_ticks = p->ticks;
+					p_proc_ready = p;
+				}
+			}
+		}
+
+		if (!greatest_ticks)
+			for (p = &FIRST_PROC; p <= &LAST_PROC; p++)
+				if (p->p_flags == 0)
+					p->ticks = p->priority;
+	}
+}
+
+\end{lstlisting}
+\subsection{进程通信}
+由于系统采用了微内核结构。进程间通信便成了一个很重要的过程。为了保证建成能够及时的收发信息，我们采用了同步IPC的方式进行进程见通信。而在进程控制块中则设置了相应的数据结构方便实现。每个进程都保存一个指向MASSAGE数据结构的指针，用以得到进程通信的内容。并且考虑到可能有多个进程参加同一个进程通信过程。在进程控制块中设置了两个指针用以寻找处在发送或者接受链表的下一个或者上一个进程。p\_ recvfrom记录着信息来自哪一个进程。p\_ sendto记录着信息将会发送给哪个进程。
+\begin{lstlisting}
+/*from include/sys/proc.h*/
+	MESSAGE * p_msg;
+	int p_recvfrom;
+	int p_sendto;
+
+	int has_int_msg;           /**
+				    * nonzero if an INTERRUPT occurred when
+				    * the task is not ready to deal with it.
+				    */
+
+	struct proc * q_sending;   /**
+				    * queue of procs sending messages to
+				    * this proc
+				    */
+	struct proc * next_sending;/**
+				    * next proc in the sending
+				    * queue (q_sending)
+				    */
+\end{lstlisting}
+\section{进程间通信}
+\subsection{同步IPC}
+IPC是Inter-Process Communication的缩写，直译为进程见通信，说白了就是进程间发送消息。而我们使用的是同步IPC，它不像寄邮件那样，倒像接力赛，发送者一直等到接受者收到消息才肯放手，接受者也一样，接不消息就一直等着，不敢别的。使用同步IPC有若干好处比如：操作系统不用另外维护缓冲区来存放正在传递的消息；操作系统不许要保留一份消息副本；操作系统不需要维护接收队列；发送者和接受者都可在任何时刻清晰且容易知道消息是怎样发送的；从实现系统调用的角度来讲，同步IPC更加合理——当使用系统调用的时候，我们的确需要等待内核返回结果之后在继续。
+\paragraph{}
+假设有进程A想向进程B发送消息M，那么过程将会是这样的：
+\\ 1.进程A准备好M。
+\\ 2.A通过系统调用sendrec，最终调用msg\_ send。
+\\ 3.简单判断是否发生死锁。
+\\ 4.判断目标进程B是否正在等待来自A的消息:如果是，消息被复制给B，B被接触阻塞，继续运行；如果不是，A被阻塞，并加入到B的发送队列中。
+\paragraph{}
+假设进程B想要接受消息（来自特定进程、中断或者任意进程），那么过程将会是这样的：
+\\ 1.B准备一个空的消息结构M，用于接受消息。
+\\ 2.B通过系统调用sendrec，最终调用msg\_ receive。
+\\ 3.判断B是否有个来自硬件的消息（通过has\_ int\_ msg），如果是，并且B准备接受来自任意中断的消息，则马上准备一个消息给B，并返回。
+\\ 4.如果B想要接受来自任意进程的消息，则从自己的发送队列中选取第一个（如果队列非空），将其消息复制给M。
+\\ 5.如果B是想接受来自特定进程A的消息，则先判断A时候正在等待发送消息，若是，将其消息复制给M。
+\\ 6.如果此时没有任何进程发消息给B，B会被阻塞。
+\paragraph{}
+这样一来整个同步IPC机制的过程就如图\ref{sendrecv}所示：
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.4]{sendrecv.eps}
+\caption{同步IPC流程图}
+\label{sendrecv}
+\end{figure}
+\subsection{信号量机制}
+\section{进程的创建与撤销}
+操作系统中的进程可以分成两类。一类是任务即系统进程，用来提供系统服务，像上面所提到的用于进程同步的系统调用。而另外一类是用户自己的程序，是运行在操作系统之上的程序。对于这两类程序，创建和撤销都有着不一样的过程。一般任务在系统启动的时候由操作系统完成初始化，当操作系统关闭时自动撤销。而用户程序则是由各自的父进程创建，并由操作系统来撤销并收回其占用资源。
+\subsection{任务的创建和撤销}
+任务的主要功能是用来提供系统服务，是操作系统自始至终都在运行着的服务性质的程序。他的创建过程是操作系统启动的一部分，即随着操作系统的启动而创建。随着操作系统的关闭而撤销。任务的创建和撤销完全不许要用户来干预，由操作系统自动完成。在操作系统中，我们定义了六种任务。他们是系统的基本服务。包括文件系统，硬盘驱动，基本输入输出，内存管理和一种信号量机制。
+\begin{lstlisting}
+/*from kernel/global.c*/
+/* 注意下面的 TASK 的顺序要与 const.h 中对应 */
+PUBLIC	struct task	task_table[NR_TASKS] = {
+	/* entry        stack size        task name */
+	/* -----        ----------        --------- */
+	{task_tty,      STACK_SIZE_TTY,   "TTY"       },
+	{task_sys,      STACK_SIZE_SYS,   "SYS"       },
+	{task_hd,       STACK_SIZE_HD,    "HD"        },
+	{task_fs,       STACK_SIZE_FS,    "FS"        },
+	{task_mm,       STACK_SIZE_MM,    "MM"        },
+    {task_signal,	STACK_SIZE_SIGNAL, "SIGNAL"   }};
+\end{lstlisting}
+这些任务的初始化工作是在操作系统加载内核的过程中完成的。在这个过程中初始化了任务的PCB中的各个参数并分配了内存和其他资源。使任务能够正常运行。
+\begin{lstlisting}
+\end{lstlisting}
+\subsection{用户进程的创建和撤销}
+用户进程一般是用户使用的时候创建，而在完成所应该完成的任务后撤销。这个过程是由该进程的父进程控制完成。于是我们在系统启动的时候就需要创建一个所有用户进程的父进程，以创建和撤销其他的进程。这个进程就是init进程。
+\begin{lstlisting}
+/*from kernel/global.c*/
+PUBLIC	struct task	user_proc_table[NR_NATIVE_PROCS] = {
+	/* entry    stack size     proc name */
+	/* -----    ----------     --------- */
+	{Init,   STACK_SIZE_INIT,  "INIT" },
+	{TestA,  STACK_SIZE_TESTA, "TestA"},
+	{TestB,  STACK_SIZE_TESTB, "TestB"},
+	{TestC,  STACK_SIZE_TESTC, "TestC"}};
+\end{lstlisting}
+init的具体实现如下：
+\begin{lstlisting}
+/*from kernel/global.c*/
+void Init()
+{
+	int fd_stdin  = open("/dev_tty0", O_RDWR);
+	assert(fd_stdin  == 0);
+	int fd_stdout = open("/dev_tty0", O_RDWR);
+	assert(fd_stdout == 1);
+	printf("Init() is running ...\n");
+	/* extract `cmd.tar' */
+	untar("/cmd.tar");
+	char * tty_list[] = {"/dev_tty0", "/dev_tty2"};
+	int i;
+	for (i = 0; i < sizeof(tty_list) / sizeof(tty_list[0]); i++) {
+		int pid = fork();
+		if (pid != 0) { /* parent process */
+			printf("[parent is running, child pid:%d]\n", pid);
+		}
+		else {	/* child process */
+			printf("[child is running, pid:%d]\n", getpid());
+			close(fd_stdin);
+			close(fd_stdout);
+			
+			shabby_shell(tty_list[i]);
+			assert(0);
+		}
+	}
+	while (1) {
+		int s;
+		int child = wait(&s);
+		printf("child (%d) exited with status: %d.\n", child, s);
+	}
+	assert(0);
+}
+\end{lstlisting}
+作为所有用户进程的父进程的init进程所完成的工作主要是创建了一个标准的shell，用以接受用户命令。而接受到用户命令之后调用系统调用exec来完成进程的创建。在用户进程完成任务后，发送消息给父进程，父进程通知内存管理程序撤销该用户进程。因为用户进程的创建和撤销与内存管理紧密相连，这一步分内容将放在内存管理章节中详细阐述。
+\chapter{中断管理}
+\section{中断管理框架}
+实时系统要求对具有较高时间要求的活动以及对外来信息要以足够块的速度进行处理，并在一定时间内作出相应，实时系统的最大特点就是实时性，实时系统的中断管理机构是实现实时系统实时相应的机构之一。
+\paragraph{}
+在实时系统中，由于外部事件的不确定性和客观性，受控硬件的各个参数、信息、活动需要处理时，往往向CPU发出中断请求，要求CPU进行处理，中断机制的引入可以让CPU和外设达到真正的并行。并且中断机制也是计算机实现并发的基础之一，中断机制的实现和硬件紧密相连（参见第一章）。在我们的硬件模型中使用了两个Intel8259A，并使用主从结构相连。系统总共能够处理15种硬件中断。我们在说到中断的时候往往与异常相提并论。实际上，他们都是程序在执行过程中的强制性转移，转移到相应的处理程序。中断一般是程序执行过程中因为硬件而产生。异常则通常在处理器执行指令过程中检测到错误时发生，比如遇到零除的情况。处理器检测的错误条件有很多，比如保护违例、页错误等。因此所设计的中断机制除了能够响应和处理一般的硬件中断之外，还要能够处理保护模式下的一些异常。
+\paragraph{}
+在多进程的环境中，系统必须对中断进行统一的管理，同时也比徐对异常进行统一的管理。从软件的角度出发，对中断的处理分为三个步骤：
+\\ 1.中断处理入口的处理。
+\\ 2.系统或用户定义的中断服务程序。
+\\ 2.中断处理出口的处理。
+整个过程正如图\ref{interup}所示：
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.4]{interup.eps}
+\caption{中断处理服务}
+\label{interup}
+\end{figure}
+中断发生时，硬件根据中断向量进入中断处理入口，该入口不是统一的入口，而是对每一个向量都设置相应的中断类型标志，进入中断总控程序，此程序将所有现场保护进栈后，根据类型标志，转移去执行系统或者用户定义的中断服务程序。
+\paragraph{}
+由于操作系统运行在保护模式下，原来在实模式中实现中断用的中断向量表被IDT（Iterrupt Descriptor Table）所替代。这个表也是个描述符表，叫做中断描述符。IDT的作用是将每一个中断向量和对应的描述符对应起来。从这个意义上讲IDT也是一种向量表，虽然它在形式上与实模式下的向量表非常不同。于是在保护模式下一次中断处理中寻找相应处理程序入口的过程就变成了图\ref{interruptslove}所示。
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.6]{interruptslove.eps}
+\caption{中断向量}
+\label{interruptslove}
+\end{figure}
+中断处理出口，首先要检查中断桥套的层次和是否应该调度在局定从哪个出口返回。
+\section{初始化Inter8259A}
+在系统初始化过程中我们将对两个中断控制器8259A进行初始化工作。并且初始化各种响应和处理中断有关的数据结构。
+\begin{lstlisting}
+/*from kernel/i8259.c*/
+PUBLIC void init_8259A()
+{
+	out_byte(INT_M_CTL,	0x11);			/* Master 8259, ICW1. */
+	out_byte(INT_S_CTL,	0x11);			/* Slave  8259, ICW1. */
+	out_byte(INT_M_CTLMASK,	INT_VECTOR_IRQ0);	/* Master 8259, ICW2. 设置 '主8259' 的中断入口地址为 0x20. */
+	out_byte(INT_S_CTLMASK,	INT_VECTOR_IRQ8);	/* Slave  8259, ICW2. 设置 '从8259' 的中断入口地址为 0x28. */
+	out_byte(INT_M_CTLMASK,	0x4);			/* Master 8259, ICW3. IR2 对应 '从8259'. */
+	out_byte(INT_S_CTLMASK,	0x2);			/* Slave  8259, ICW3. 对应 '主8259' 的 IR2. */
+	out_byte(INT_M_CTLMASK,	0x1);			/* Master 8259, ICW4. */
+	out_byte(INT_S_CTLMASK,	0x1);			/* Slave  8259, ICW4. */
+
+	out_byte(INT_M_CTLMASK,	0xFF);	/* Master 8259, OCW1. */
+	out_byte(INT_S_CTLMASK,	0xFF);	/* Slave  8259, OCW1. */
+
+	int i;
+	for (i = 0; i < NR_IRQ; i++) {
+		irq_table[i] = spurious_irq;
+	}
+}
+\end{lstlisting}
+初始化函数首先向主8259A和从9259A发送了相应的命令字，确定了他们的工作方式。然后初始化了一个函数指针数组
+irq\_ table，指向各个中断处理程序的入口地址。
+\begin{lstlisting}
+/*form kernel/global.c*/
+PUBLIC	irq_handler	irq_table[NR_IRQ];
+\end{lstlisting}
+其中irq\_ handler的定义在type.h中：
+\begin{lstlisting}
+/*form include/type.h*/
+typedef	void	(*int_handler)	();
+\end{lstlisting}
+NR\_ IRQ的值定义为16，以对应主从两个8259A。实际上主从方式的两个8259A只可以处理15种硬件中断，在这个设置成16中只是为了实现上的方便。
+\begin{lstlisting}
+/*form include/sys/const.h*/
+#define	NR_IRQ		16	/* Number of IRQs */
+\end{lstlisting}
+\section{初始化IDT}
+中断服务中将中断和异常使用统一的过程来处理，这样既简化了中断服务的逻辑，又方便了实现。
+\begin{lstlisting}
+/* 本文件内函数声明 */
+PRIVATE void init_idt_desc(unsigned char vector, u8 desc_type, int_handler handler, unsigned char privilege);
+
+
+/* 异常处理函数 */
+void	divide_error();
+     ......
+/*中断处理函数 16个*/
+void	hwint00();
+     ......
+/*======================================================================*
+                            init_prot
+ *----------------------------------------------------------------------*
+ 初始化 IDT
+ *======================================================================*/
+PUBLIC void init_prot()
+{
+	init_8259A();
+	/* 全部初始化成中断门(没有陷阱门) 异常向量初始化*/
+	init_idt_desc(INT_VECTOR_DIVIDE,	DA_386IGate,
+		      divide_error,		PRIVILEGE_KRNL);
+		      
+		           ......
+		           
+	init_idt_desc(INT_VECTOR_SYS_CALL,	DA_386IGate,
+		      sys_call,			PRIVILEGE_USER);
+
+	/* Fill the TSS descriptor in GDT */
+	memset(&tss, 0, sizeof(tss));
+	tss.ss0	= SELECTOR_KERNEL_DS;
+	init_desc(&gdt[INDEX_TSS],
+		  makelinear(SELECTOR_KERNEL_DS, &tss),
+		  sizeof(tss) - 1,
+		  DA_386TSS);
+	tss.iobase = sizeof(tss); /* No IO permission bitmap */
+
+	/* Fill the LDT descriptors of each proc in GDT  */
+	int i;
+	for (i = 0; i < NR_TASKS + NR_PROCS; i++) {
+		memset(&proc_table[i], 0, sizeof(struct proc));
+
+		proc_table[i].ldt_sel = SELECTOR_LDT_FIRST + (i << 3);
+		assert(INDEX_LDT_FIRST + i < GDT_SIZE);
+		init_desc(&gdt[INDEX_LDT_FIRST + i],
+			  makelinear(SELECTOR_KERNEL_DS, proc_table[i].ldts),
+			  LDT_SIZE * sizeof(struct descriptor) - 1,
+			  DA_LDT);
+	}
+}
+\end{lstlisting}
+在上面的初始化函数中，初始化了IDT。将所有的中断和异常与他们所对应的处理程序的入口在IDT中设置好。并将所有的异常初始化成中断门，每一种异常的处理函数是不一杨。比如零除异常的处理函数为divide\_ error()。然后我们配置了中断向量。之后函数填充了堆栈切换事的重要数据结构TSS。同时也初始化了系统调用的入口地址。
+\section{中断和异常处理}
+\subsection{中断处理}
+我们使用统一的中断处理方式来处理各种各样的中断。这里使用了一个只有一个参数的宏hwint\_ master
+\begin{lstlisting}
+/*form kernel/protect.c
+ *主8259A的中断处理*/
+%macro	hwint_master	1
+	call	save
+	in	al, INT_M_CTLMASK	; `.
+	or	al, (1 << %1)		;  | 屏蔽当前中断
+	out	INT_M_CTLMASK, al	; /
+	mov	al, EOI			; `. 置EOI位
+	out	INT_M_CTL, al		; /
+	sti	; CPU在响应中断的过程中会自动关中断，这句之后就允许响应新的中断
+	push	%1			; `.
+	call	[irq_table + 4 * %1]	;  | 中断处理程序
+	pop	ecx			; /
+	cli
+	in	al, INT_M_CTLMASK	; `.
+	and	al, ~(1 << %1)		;  | 恢复接受当前中断
+	out	INT_M_CTLMASK, al	; /
+	ret
+%endmacro
+ALIGN	16
+hwint00:		; Interrupt routine for irq 0 (the clock).
+	hwint_master	0
+     
+     ........
+\end{lstlisting}
+比如对于一种时钟中断的处理函数hwint00。我们将时钟中断的中断号0以参数的形式传递给宏hwint\_ master。在宏hwint\_ master中，首先调用save函数保护现场。然后从函数指针数组irq\_ table中找到相应的函数的入口地址。调用之。之后还原现场，退出中断处理程序。
+\chapter{内存管理}
+内存是系统重要资源。如何对它进行有效的管理，不仅直接影响到存储器的利用率，而且还对系统的性能有很大的影响。在我们的操作系统硬件模型中强调过我们使用以80386为核心的机器。而80386使用两级虚拟-物理地址转换，即使用了分段机制和分页机制来实现两级地址转换。第一级把包含段地址和段内偏移的虚拟地址转换为一个现行地址，第二级把线性地址转换成物理地址。如图\ref{machine}所示：
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.4]{machine.eps}
+\caption{内存地址转化}
+\label{machine}
+\end{figure}
+而在建立起基本段页式管理机制后整个内存看起来图\ref{neicun}所示：
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.4]{neicun.eps}
+\caption{内存概况}
+\label{neicun}
+\end{figure}
+\section{基本分段管理机制}
+段是实现虚拟地址到线性地址转换机制的基础。在保护方式下，每个段由如下三个参数进行定义：段基地址(Base Address)、段界限(Limit)和段属性(Attributes)。用于表示上述定义段的三个参数的数据结构称为描述符。每个描述符长8个字节。在保护方式下，每一个段都有一个相应的描述符来描述。按描述符所描述的对象来划分，描述符可分为如下三类：存储段描述符、系统段描述符、门描述符(控制描述符)。在操作系统中定义了三个描述符，分别是一个0～4GB的可执行段、一个0～4GB的可读写段和一个指向显存开始地址的段。
+\begin{lstlisting}
+;form boot/loader.as
+LABEL_GDT:               Descriptor     0,      0,      0
+LABEL_DESC_FLAT_C:	Descriptor     0,      0fffffh,DA_CR  | DA_32 | DA_LIMIT_4K
+LABEL_DESC_FLAT_RW:	Descriptor     0,      0fffffh,DA_DRW | DA_32 | DA_LIMIT_4K
+LABEL_DESC_VIDEO:	Descriptor	 0B8000h,  0ffffh, DA_DRW | DA_DPL3	         
+\end{lstlisting}
+上面所定义的几个段是在loader中定义的，在内核中我们使用我们又将写描述符写入了相应的寄存器。主要是填充了GDT（global Descriptor Table）和LDT（Local Descriptor Table）.
+\begin{lstlisting}
+PUBLIC void cstart()
+{
+	disp_str("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n-----\"cstart\" begins-----\n");
+
+	/* 将 LOADER 中的 GDT 复制到新的 GDT 中 */
+	memcpy(	&gdt,				   /* New GDT */
+		(void*)(*((u32*)(&gdt_ptr[2]))),   /* Base  of Old GDT */
+		*((u16*)(&gdt_ptr[0])) + 1	   /* Limit of Old GDT */
+		);
+	/* gdt_ptr[6] 共 6 个字节：0~15:Limit  16~47:Base。用作 sgdt 以及 lgdt 的参数。 */
+	u16* p_gdt_limit = (u16*)(&gdt_ptr[0]);
+	u32* p_gdt_base  = (u32*)(&gdt_ptr[2]);
+	*p_gdt_limit = GDT_SIZE * sizeof(struct descriptor) - 1;
+	*p_gdt_base  = (u32)&gdt;
+
+	/* idt_ptr[6] 共 6 个字节：0~15:Limit  16~47:Base。用作 sidt 以及 lidt 的参数。 */
+	u16* p_idt_limit = (u16*)(&idt_ptr[0]);
+	u32* p_idt_base  = (u32*)(&idt_ptr[2]);
+	*p_idt_limit = IDT_SIZE * sizeof(struct gate) - 1;
+	*p_idt_base  = (u32)&idt;
+
+	init_prot();
+
+	disp_str("-----\"cstart\" finished-----\n");
+}
+\end{lstlisting}
+函数cstart（）首先把位于Loader中的GDT全部复制给新的GDT，然后吧gdt\_ ptr中的内容换成新的GDT的基地址和界限。这样操作系统中基本的分段管理机制就建立起来了。
+\section{基本分页管理机制}
+操作系统使用传统的两级也表对物理内存进行管理。使用两级页表一方面是由于x86硬件上支持两级页表，另一方面我们可以通过减少第二级也表页表项数量来节省内存。这样操作系统的两级也表结构如图\ref{page}所示。
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.4]{page.eps}
+\caption{两级页表}
+\label{page}
+\end{figure}
+第一级也表叫做页目录，大小为4KB，存储在一个物理页中，每个页表项4B，总共有1024个页表项。每个页表项对应着第二级页表的一个页表，第二级页表的每个页表也有1024个表项，每一个表项对应一个物理页。页目录表的表项简称PDE（Page Directory Entry），页表的表项简称PTE（Page Table Entry）。进行转换事，首先是寄存器cr3指定的页目录中根据线性地址的高10位得到页表地址，然后在页表中根据线性地址的第12到21位得到物理页首地址，将这个首地址加上线性地址低12位便得到了物理地址。这里在地址映射的时候采用了直接映射的方法。而
+基本分页管理机制实在Loader中启动的。
+\begin{lstlisting}
+;form boot/loader.asm
+	call	DispMemInfo ；获取内存情况
+	call	SetupPaging ；启动分页机制
+\end{lstlisting}
+\subsection{用户内存空间管理}
+一个成熟的内存分配机制是比较复杂的，但这并非就意味着简单的机制完成不了这个功能。在这里我们使用了一种极其简单而且古老的方案，即采用固定分配方式。有新的进程需要内存，就给它划出一定的内存。我们将大小定为1MB，这个数字在一定程度内可以任意选取，但至少大于内核的大小240KB，这样就能够容的下初始进程Init。然而，并非所有的内存都能够被内存管理程序使用。0～1MB的空间被内核使用，显然不能用。另外未见系统也在内存中开辟出了一些空间充当缓存，这些也不能用。综合各种因素，我们定义了下面这样几个宏：
+\begin{lstlisting}
+/*form include/sys/proc.h
+ * All forked proc will use memory above PROCS_BASE.
+ *
+ * @attention make sure PROCS_BASE is higher than any buffers, such as
+ *            fsbuf, mmbuf, etc
+ * @see global.c
+ * @see global.h
+ */
+#define	PROCS_BASE		0xA00000 /* 10 MB */
+#define	PROC_IMAGE_SIZE_DEFAULT	0x100000 /*  1 MB */
+#define	PROC_ORIGIN_STACK	0x400    /*  1 KB */
+\end{lstlisting}
+我们将PROCS\_ BASE定义为0xA00000，也就是说，将10MB以上的内存空间给用户进程使用。每一个进程占1MB的空间。在进程创建时只需要在用户空间中，拿出1MB给其使用就可以。这样内存分配实现起来就非常方便。
+\begin{lstlisting}
+/**
+ * Allocate a memory block for a proc.
+ * 
+ * @param pid  Which proc the memory is for.
+ * @param memsize  How many bytes is needed.
+ * 
+ * @return  The base of the memory just allocated.
+ *****************************************************************************/
+PUBLIC int alloc_mem(int pid, int memsize)
+{
+	assert(pid >= (NR_TASKS + NR_NATIVE_PROCS));
+	if (memsize > PROC_IMAGE_SIZE_DEFAULT) {
+		panic("unsupported memory request: %d. "
+		      "(should be less than %d)",
+		      memsize,
+		      PROC_IMAGE_SIZE_DEFAULT);
+	}
+
+	int base = PROCS_BASE +
+		(pid - (NR_TASKS + NR_NATIVE_PROCS)) * PROC_IMAGE_SIZE_DEFAULT;
+
+	if (base + memsize >= memory_size)
+		panic("memory allocation failed. pid:%d", pid);
+
+	return base;
+}
+\end{lstlisting}
+这种内存分配方案，其实就是在进程PID和进程内存空间之间建立了一种映像关系，或者说，内存空间基址是进程PID的一个函数。这一方案的缺点非常明显。对于小一点的进程，1MB空间太浪费，而对于大一点的程序，1MB又可能会不够。不过我们这里偏重于实现。在我们的操作系统中没有程序大小超过1MB，而对于空间浪费，那属于优化的问题，这里先不予考虑。
+\chapter{文件系统}
+文件是信息的集合，文件可以是语言程序，目标程序，数据和其他信息。文件一般记录在存储介质如软盘和硬盘上。在我们所设计的操作系统中，存储文件的介质默认为ATA硬盘。所谓文件系统，就是指操作系统中与文件管理有关的那部分软件和悲观文件与管理所需要的数据结构的粽子，这些数据结构包括文件的各级目录，文件分配表等。从系统的角度来看，文件系统是对文件存储器的存储空间进行组织分配，负责文件的存储并对存入的文件进行保护，检索的系统。具体说，它素则为用户建立、删除、存入、读取、修改、转寸文件，并控制文件的存取。从用户的角度来看，当用户要求系统保存一个已命名的文件时，文件系统根据一定的格式将它的文件存放到文件存储器适当的地方，当用户要使用文件的时候，系统根据用户给出的文件名，能够从文件存储器中找到所需要的文件或文件的某个记录。因此，文件系统的用户，只要知道他们文件的名字，就可以获取文件中的信息，而无需知道这些文件在什么地方和怎样存放。
+\paragraph{}
+在文件系统的支持下，操作系统才能够方便的使用各种语言编译程序、联机数据、子程序库等。此外所有输入输出操作都能够得到文件系统的服务。
+\section{文件的物理组织}
+文件的物理组织设计到文件在文件存储器中的存储方式。文件组织方法取决于用户通常怎样建立这个文件，以后怎样处理，主要的是，也取决与存储介质本身的特征。
+\paragraph{}
+参考一下FAT12文件格式后发现一个简单的文件系统大致需要这么几个要素：要有地方存放Metadata；要有地方记录扇区的使用情况；
+要有地方来记录任一文件的信息，比如占用了那些扇区等；
+要有地方存放文件的索引。于是根据这些要素，同时参考Minix文件系统，我们把我们的文件系统设计成了如图\ref{file}所示：
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.4]{file.eps}
+\caption{文件系统结构}
+\label{file}
+\end{figure}
+可以看到，总体上来看，它几乎把前述的各个要素实现了：
+\\要有地方存放Metadata——占用整整一个扇区的superblock；
+\\要有地方记录扇区的使用情况——sector map；
+\\要有地方来记录任一文件的信息，比如占用了那些扇区等——inode map以及称作inode\_ array的i-node真正存放地；
+\\要有地方存放文件的索引——root数据区。
+\paragraph{}
+superblock通常也叫超级块，关于文件系统的Metadata我们都记载这里。sector map是一个位图，它用来映射扇区的使用情况，用1表示扇区已经被使用，0表示未被使用。i-node是UNIX世界各种文件系统的核心数据结构之一，我们把它借用过来。每个i-node对应一个文件，用于存放文件名、文件属性等内容，inode\_ array这个数组就是把所有i-node都放在这里，形成一个统一的管理机制。而inode map就是用来映射inode\_ array这个数组使用情况的一个位图，用法与sector map类似。root数据区类似于FAT12的根目录区，但本质上它也是一个普通文件，由于它是所有文件的索引，所以我们把它单独看待。为了简单起见，我们的文件系统暂不支持文件夹，也就是说用来表示目录的特殊文件只有这么一个。这种不知吃文件夹的文件系统叫做扁平文件系统（Flat File System）。
+\chapter{输入输出系统}
+\appendix
+\chapter{同步IPC实现源码}
+\begin{lstlisting}
+
+\end{lstlisting}
+
+\end{document}

@@ -1,0 +1,49 @@
+\contentsline {chapter}{\numberline {第一章\hspace {0.3em}}操作系统的结构设计}{1}
+\contentsline {section}{\numberline {1.1}设计概要}{1}
+\contentsline {section}{\numberline {1.2}硬件模型}{1}
+\contentsline {paragraph}{}{2}
+\contentsline {subsection}{\numberline {1.2.1}存储系统}{2}
+\contentsline {subsection}{\numberline {1.2.2}输入输出系统}{2}
+\contentsline {subsection}{\numberline {1.2.3}中央处理器}{2}
+\contentsline {subsection}{\numberline {1.2.4}中断机制硬件基础}{3}
+\contentsline {section}{\numberline {1.3}系统启动顺序}{4}
+\contentsline {paragraph}{}{4}
+\contentsline {section}{\numberline {1.4}内核结构}{5}
+\contentsline {paragraph}{}{5}
+\contentsline {chapter}{\numberline {第二章\hspace {0.3em}}内核加载}{6}
+\contentsline {section}{\numberline {2.1}Boot}{6}
+\contentsline {section}{\numberline {2.2}Loader}{6}
+\contentsline {chapter}{\numberline {第三章\hspace {0.3em}}进程管理}{7}
+\contentsline {section}{\numberline {3.1}进程管理服务框架}{7}
+\contentsline {paragraph}{}{7}
+\contentsline {paragraph}{}{7}
+\contentsline {section}{\numberline {3.2}进程控制块PCB}{7}
+\contentsline {subsection}{\numberline {3.2.1}进程数据保存}{9}
+\contentsline {paragraph}{}{9}
+\contentsline {paragraph}{}{9}
+\contentsline {subsection}{\numberline {3.2.2}进程状态和进程标志}{11}
+\contentsline {paragraph}{}{11}
+\contentsline {subsection}{\numberline {3.2.3}进程优先级及进程调度}{12}
+\contentsline {subsection}{\numberline {3.2.4}进程通信}{13}
+\contentsline {section}{\numberline {3.3}进程间通信}{14}
+\contentsline {subsection}{\numberline {3.3.1}同步IPC}{14}
+\contentsline {paragraph}{}{14}
+\contentsline {paragraph}{}{14}
+\contentsline {paragraph}{}{14}
+\contentsline {subsection}{\numberline {3.3.2}信号量机制}{16}
+\contentsline {section}{\numberline {3.4}进程的创建与撤销}{16}
+\contentsline {subsection}{\numberline {3.4.1}任务的创建和撤销}{16}
+\contentsline {subsection}{\numberline {3.4.2}用户进程的创建和撤销}{16}
+\contentsline {chapter}{\numberline {第四章\hspace {0.3em}}中断管理}{19}
+\contentsline {paragraph}{}{19}
+\contentsline {paragraph}{}{19}
+\contentsline {paragraph}{}{19}
+\contentsline {section}{\numberline {4.1}初始化Inter8259A}{20}
+\contentsline {section}{\numberline {4.2}初始化IDT}{22}
+\contentsline {section}{\numberline {4.3}中断和异常处理}{24}
+\contentsline {subsection}{\numberline {4.3.1}中断处理}{24}
+\contentsline {subsection}{\numberline {4.3.2}异常处理}{25}
+\contentsline {chapter}{\numberline {第五章\hspace {0.3em}}内存管理}{26}
+\contentsline {chapter}{\numberline {第六章\hspace {0.3em}}文件系统}{27}
+\contentsline {chapter}{\numberline {第七章\hspace {0.3em}}输入输出系统}{28}
+\contentsline {chapter}{\numberline {附录\nobreakspace {}A\hspace {0.3em}}同步IPC实现源码}{29}
